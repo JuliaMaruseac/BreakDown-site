@@ -64,6 +64,9 @@ async def create_case(
     media_paths = []
     for f in media_files:
         path = os.path.join(UPLOAD_DIR, f'{cid}_{f.filename}')
+        path = os.path.join(UPLOAD_DIR, f'{cid}_{f.filename}')
+        filename = os.path.basename(f.filename)
+        path = os.path.join(UPLOAD_DIR, f"{cid}_{filename}")
         with open(path, 'wb') as out:
             out.write(await f.read())
         media_paths.append(path)
@@ -71,6 +74,8 @@ async def create_case(
     invoice_path = None
     if invoice_file:
         invoice_path = os.path.join(UPLOAD_DIR, f'{cid}_inv_{invoice_file.filename}')
+        inv_filename = os.path.basename(invoice_file.filename)
+        invoice_path = os.path.join(UPLOAD_DIR, f"{cid}_inv_{inv_filename}")
         with open(invoice_path, 'wb') as out:
             out.write(await invoice_file.read())
 
@@ -105,7 +110,7 @@ async def get_cases():
 FRONTEND_DIST = os.path.join(os.path.dirname(__file__), '..', 'frontend', 'dist')
 if os.path.isdir(FRONTEND_DIST):
     app.mount('/', StaticFiles(directory=FRONTEND_DIST, html=True), name='frontend')
-
+    app.mount('/uploads', StaticFiles(directory=UPLOAD_DIR), name='uploads')
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, host='0.0.0.0', port=8000)
