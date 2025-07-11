@@ -4,7 +4,11 @@ providers = ["node", "python"]
 PORT = "8000"
 
 [phases.setup]
+
 nixPkgs = ["nodejs_18", "python311"]
+=======
+nixPkgs = ["nodejs-18_x", "python311"]
+
 
 [phases.install]
 cmds = [
