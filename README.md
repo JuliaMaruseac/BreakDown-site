@@ -41,6 +41,7 @@ The Dockerfile builds the React app and then starts the FastAPI server with
 `uvicorn`.
 
 
+
 The frontend expects the backend on `http://localhost:8000`.
 
 The frontend communicates with the backend using relative paths, so it works as long as both are served from the same origin (for example when running locally on `http://localhost:8000` or when deployed together on Railway).
@@ -62,3 +63,4 @@ picked up automatically.
 The `nixpacks.toml` file installs Node.js 18 and Python 3.11. Ensure all build
 tools such as Webpack and Babel are listed in `frontend/package.json` so the
 React app can compile during deployment.
+
