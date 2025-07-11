@@ -1,0 +1,10 @@
+# Python artifacts
+__pycache__/
+*.pyc
+
+# Node artifacts
+frontend/node_modules/
+frontend/dist/
+
+# Uploads from backend
+backend/uploads/
