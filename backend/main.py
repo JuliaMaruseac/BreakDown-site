@@ -63,7 +63,7 @@ async def create_case(
     cid = len(cases_db) + 1
     media_paths = []
     for f in media_files:
-
+        path = os.path.join(UPLOAD_DIR, f'{cid}_{f.filename}')
         path = os.path.join(UPLOAD_DIR, f'{cid}_{f.filename}')
         filename = os.path.basename(f.filename)
         path = os.path.join(UPLOAD_DIR, f"{cid}_{filename}")
