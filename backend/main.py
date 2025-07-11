@@ -1,6 +1,9 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field
+from typing import List, Optional
+
 
 from pydantic import BaseModel, Field
 from typing import List, Optional
@@ -9,6 +12,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import date
 
+ 
 import os
 
 app = FastAPI()
@@ -45,6 +49,7 @@ class Case(BaseModel):
     culprit: Optional[str] = None
     efs_code: Optional[str] = None
     media: List[str] = Field(default_factory=list)
+
     media: List[str] = []
     invoice: Optional[str] = None
 
@@ -134,7 +139,9 @@ async def get_cases():
 FRONTEND_DIST = os.path.join(os.path.dirname(__file__), '..', 'frontend', 'dist')
 if os.path.isdir(FRONTEND_DIST):
     app.mount('/', StaticFiles(directory=FRONTEND_DIST, html=True), name='frontend')
+
     app.mount('/uploads', StaticFiles(directory=UPLOAD_DIR), name='uploads')
+
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, host='0.0.0.0', port=8000)

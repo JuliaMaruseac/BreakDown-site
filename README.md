@@ -22,7 +22,10 @@ Install dependencies and run the development server:
 cd frontend
 npm install
 npm run start
-```
+
+
+# Build the production bundle
+npm run build
 
 
 The frontend expects the backend on `http://localhost:8000`.
@@ -39,6 +42,7 @@ docker run -p 8000:8000 breakdown
 
 The Dockerfile builds the React app and then starts the FastAPI server with
 `uvicorn`.
+
 
 
 
