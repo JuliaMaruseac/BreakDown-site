@@ -24,7 +24,7 @@ npm install
 npm run start
 ```
 
-The frontend expects the backend on `http://localhost:8000`.
+The frontend communicates with the backend using relative paths, so it works as long as both are served from the same origin (for example when running locally on `http://localhost:8000` or when deployed together on Railway).
 
 ## Deploying with Nixpacks
 
