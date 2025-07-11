@@ -30,6 +30,7 @@ export default function NewCase() {
     mediaFiles.forEach(f => data.append('media_files', f));
     if (invoiceFile) data.append('invoice_file', invoiceFile);
     await fetch('http://localhost:8000/cases', {
+    await fetch('/cases', {
       method: 'POST',
       body: data
     });
