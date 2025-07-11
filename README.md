@@ -26,15 +26,3 @@ npm run start
 
 The frontend expects the backend on `http://localhost:8000`.
 
-## Deploying with Nixpacks
-
-This repository contains both a Python backend and a Node frontend.  A
-`nixpacks.toml` configuration is included so that Railway (or any system that
-uses Nixpacks) can build the project:
-
-1. Python dependencies are installed from `backend/requirements.txt`.
-2. Frontend dependencies are installed and the React app is built.
-3. The FastAPI server is started with `uvicorn`.
-
-Simply run `nixpacks build` or deploy on Railway and the build plan will be
-picked up automatically.
