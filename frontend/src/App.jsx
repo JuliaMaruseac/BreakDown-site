@@ -1,7 +1,4 @@
-// Полный интерфейс BreakDown с формой добавления кейса и подключением базы
-
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Cases from './pages/Cases';
@@ -21,9 +18,7 @@ export default function App() {
 
 function MainLayout() {
   const { user } = useAuth();
-
   if (!user) return <Login />;
-
   return (
     <div className="flex bg-[#0d0c1f] text-white min-h-screen">
       <Sidebar />
@@ -38,24 +33,3 @@ function MainLayout() {
     </div>
   );
 }
-
-// Пример модели кейса (можно будет использовать с backend API или Firebase)
-export const caseFields = [
-  "Дата",
-  "Водитель",
-  "Компания",
-  "Трак",
-  "Чей трак",
-  "Трейлер",
-  "Чей трейлер",
-  "Локация",
-  "Фото/Видео",
-  "Проблема",
-  "Стоимость",
-  "Оплата",
-  "Инвойс (фото)",
-  "Решение",
-  "Статус",
-  "Виновен",
-  "EFS Code"
-];
