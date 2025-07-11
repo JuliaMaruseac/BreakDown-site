@@ -3,6 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from typing import List, Optional
+
+
+from pydantic import BaseModel, Field
+from typing import List, Optional
+
+from pydantic import BaseModel
+from typing import List, Optional
+from datetime import date
+
+ 
 import os
 
 app = FastAPI()
@@ -16,6 +26,7 @@ app.add_middleware(
 
 UPLOAD_DIR = os.path.join(os.path.dirname(__file__), 'uploads')
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+
 
 # Serve uploaded media files
 app.mount('/uploads', StaticFiles(directory=UPLOAD_DIR), name='uploads')
@@ -38,6 +49,8 @@ class Case(BaseModel):
     culprit: Optional[str] = None
     efs_code: Optional[str] = None
     media: List[str] = Field(default_factory=list)
+
+    media: List[str] = []
     invoice: Optional[str] = None
 
 cases_db: List[Case] = []
@@ -79,6 +92,22 @@ async def create_case(
             out.write(await invoice_file.read())
         invoice_path = f"/uploads/{inv_name}"
 
+        path = os.path.join(UPLOAD_DIR, f'{cid}_{f.filename}')
+        path = os.path.join(UPLOAD_DIR, f'{cid}_{f.filename}')
+        filename = os.path.basename(f.filename)
+        path = os.path.join(UPLOAD_DIR, f"{cid}_{filename}")
+        with open(path, 'wb') as out:
+            out.write(await f.read())
+        media_paths.append(path)
+
+    invoice_path = None
+    if invoice_file:
+        invoice_path = os.path.join(UPLOAD_DIR, f'{cid}_inv_{invoice_file.filename}')
+        inv_filename = os.path.basename(invoice_file.filename)
+        invoice_path = os.path.join(UPLOAD_DIR, f"{cid}_inv_{inv_filename}")
+        with open(invoice_path, 'wb') as out:
+            out.write(await invoice_file.read())
+
     case = Case(
         id=cid,
         date=date,
@@ -110,6 +139,8 @@ async def get_cases():
 FRONTEND_DIST = os.path.join(os.path.dirname(__file__), '..', 'frontend', 'dist')
 if os.path.isdir(FRONTEND_DIST):
     app.mount('/', StaticFiles(directory=FRONTEND_DIST, html=True), name='frontend')
+
+    app.mount('/uploads', StaticFiles(directory=UPLOAD_DIR), name='uploads')
 
 if __name__ == '__main__':
     import uvicorn
