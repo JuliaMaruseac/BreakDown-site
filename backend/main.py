@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import date
@@ -100,6 +101,10 @@ async def create_case(
 async def get_cases():
     return cases_db
 
+# Serve the built React app if it exists
+FRONTEND_DIST = os.path.join(os.path.dirname(__file__), '..', 'frontend', 'dist')
+if os.path.isdir(FRONTEND_DIST):
+    app.mount('/', StaticFiles(directory=FRONTEND_DIST, html=True), name='frontend')
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, host='0.0.0.0', port=8000)
