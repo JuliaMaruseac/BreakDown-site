@@ -28,7 +28,7 @@ npm run start
 npm run build
 
 
-The frontend expects the backend on `http://localhost:8000`.
+When running locally, the frontend expects the backend on `http://localhost:8000`. In production the frontend calls the API using relative URLs, so no host is specified.
 
 ## Deploying with Docker
 
